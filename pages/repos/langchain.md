@@ -28,7 +28,7 @@ ORDER BY
     t.Month ASC;
 ```
 
-<LineChart data={star_history} />
+<LineChart chartAreaHeight=320 data={star_history} />
 
 ## Stars per Month
 
@@ -46,7 +46,7 @@ ORDER BY
     Month ASC;
 ```
 
-<BarChart data={stars_per_month} />
+<BarChart chartAreaHeight=320 data={stars_per_month} />
 
 ## Stars increased per day in last 7 days
 
@@ -64,4 +64,30 @@ ORDER BY
     Day ASC;
 ```
 
-<BarChart data={stars7days} />
+<BarChart chartAreaHeight=320 data={stars7days} />
+
+## Contribution 
+
+**Monthly active contributors**
+
+```contributors_per_month
+SELECT 
+    DATE_FORMAT(created_at, "%Y-%m-01") AS Month, 
+    COUNT(distinct author) AS Contributors
+FROM pull_requests
+WHERE 
+    merged = 1
+GROUP BY 1
+ORDER BY 1 ASC;
+```
+
+<BarChart data={contributors_per_month}
+chartAreaHeight=320 >
+<ReferenceLine y=20 color=green labelPosition=aboveStart hideValue=true label="Early signals of Product-Community Fit(20-50)"/>
+<ReferenceLine y=50 color=yellow labelPosition=aboveStart hideValue=true label="Strong emerging signals of Product-Communit Fit(51-100)" />
+<ReferenceLine y=100 color=blue labelPosition=aboveStart hideValue=true label="Great Product-Communit Fit(101-200)" />
+<ReferenceLine  y=200 color=red labelPosition=aboveStart hideValue=true label="Scale beyond Product-Communit Fit(200+)" />
+
+</BarChart>
+
+**Avg. monthly contributors**
