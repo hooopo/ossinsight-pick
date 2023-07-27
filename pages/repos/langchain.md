@@ -90,4 +90,15 @@ chartAreaHeight=320 >
 
 </BarChart>
 
-**Avg. monthly contributors**
+## Pypi package downloads
+
+```downloads_per_day
+SELECT 
+    DATE_FORMAT(date, '%Y-%m-%d') AS Day, 
+    sum(downloads) AS Downloads
+FROM pypi_downloads
+GROUP BY date
+order by date asc;
+```
+
+<LineChart chartAreaHeight=320 data={downloads_per_day} />
